@@ -1,0 +1,10 @@
+version: '3'
+services:
+  videochat:
+    image: videochat_image
+    build: ../Twilio
+    container_name: videochat
+    volumes:
+      - '../Twilio:/code'
+    ports:
+      - '3000:3000'
