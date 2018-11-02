@@ -1,5 +1,22 @@
 version: '3'
 services:
+  mongo:
+    image: mongo
+    container_name: springboot-mongo
+    ports:
+      - 27018:27017
+    volumes:
+    - $HOME/data/springboot-mongo-data:/data/db
+    - $HOME/data/springboot-mongo-bkp:/data/bkp
+    - ../MongoSeed/scripts/:/scripts
+    restart: always
+  # mongo-seed:
+  #   build: ../MongoSeed
+  #   links:
+  #     - mongo
+  #   depends_on:
+  #     - mongo
+  #   restart: on-failure
   videochat:
     image: videochat_image
     build: ../Twilio
@@ -8,3 +25,14 @@ services:
       - '../Twilio:/code'
     ports:
       - '3000:3000'
+  teacher:
+    build: ../Teacher
+    restart: always
+    container_name: teacher_image
+    # volumes:
+    #   - '../Teacher/target/Teacher-0.0.1-SNAPSHOT.jar:/opt/app/Teacher-0.0.1-SNAPSHOT.jar'
+    ports:
+      - 3001:3001
+    working_dir: /opt/app
+    depends_on:
+    - mongo
