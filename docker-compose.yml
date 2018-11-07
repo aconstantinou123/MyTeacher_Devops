@@ -27,3 +27,21 @@ services:
     working_dir: /opt/app
     depends_on:
     - mongo
+  student:
+    build: ../Student
+    restart: always
+    container_name: srudent_image
+    ports:
+      - 3002:3002
+    working_dir: /opt/app
+    depends_on:
+    - mongo
+  studentrecords:
+    build: ../StudentRecord
+    restart: always
+    container_name: student_records_image
+    ports:
+      - 3003:3003
+    working_dir: /opt/app
+    depends_on:
+    - mongo
