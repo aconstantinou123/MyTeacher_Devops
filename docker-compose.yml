@@ -54,3 +54,12 @@ services:
     working_dir: /opt/app
     depends_on:
     - mongo
+  whiteboard:
+    build: ../WhiteBoardSocket
+    restart: always
+    container_name: whiteboard_image
+    ports:
+      - 3005:3005
+    working_dir: /opt/app
+    depends_on:
+    - mongo
